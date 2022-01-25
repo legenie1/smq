@@ -77,15 +77,15 @@ class LoginController extends Controller
         ];
         if (Auth::attempt(['email'=>$email,'password'=>$password,'status'=>'Active'])) {
             DB::table('activity_logs')->insert($activityLog);
-            Toastr::success('Login successfully :)','Success');
+            Toastr::success('Connexion avec succès','Success');
             return redirect()->intended('home');
         }elseif (Auth::attempt(['email'=>$email,'password'=>$password,'status'=> null])) {
             DB::table('activity_logs')->insert($activityLog);
-            Toastr::success('Login successfully :)','Success');
+            Toastr::success('Connexion avec succès','Success');
             return redirect()->intended('home');
         }
         else{
-            Toastr::error('fail, WRONG USERNAME OR PASSWORD :)','Error');
+            Toastr::error('Email ou Mot de Passe Incorrecte','Error');
             return redirect('login');
         }
 
@@ -111,7 +111,7 @@ class LoginController extends Controller
         ];
         DB::table('activity_logs')->insert($activityLog);
         Auth::logout();
-        Toastr::success('Logout successfully :)','Success');
+        Toastr::success('Déconnexion réussie','Success');
         return redirect('login');
     }
 

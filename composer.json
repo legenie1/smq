@@ -10,17 +10,23 @@
     "require": {
         "php": "^7.3|^8.0",
         "brian2694/laravel-toastr": "^5.54",
+        "bugsnag/bugsnag-laravel": "^2.22",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.0.1",
+        "guzzlehttp/guzzle": "^7.4",
         "haruncpi/laravel-id-generator": "^1.0",
+        "haruncpi/laravel-simple-filemanager": "^1.0",
         "laravel/framework": "^8.12",
+        "laravel/passport": "^10.3",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "^3.2"
+        "laravel/ui": "^3.2",
+        "orangehill/iseed": "^3.0",
+        "yajra/laravel-datatables-oracle": "^9.19"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
+        "kitloong/laravel-migrations-generator": "^5.1",
         "laravel/sail": "^0.0.5",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",

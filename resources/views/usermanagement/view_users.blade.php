@@ -1,7 +1,4 @@
 @extends('layouts.master')
-@section('menu')
-@extends('sidebar.usermanagement')
-@endsection
 @section('content')
 <div id="main">
     <style>
@@ -25,14 +22,14 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>User Management View</h3>
-                    <p class="text-subtitle text-muted">For user to check they list</p>
+                    <h3>Gestion des Comptes</h3>
+                    <p class="text-subtitle text-muted">Pour que l'utilisateur vérifie sa liste</p>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">User Mangement View</li>
+                            <li class="breadcrumb-item"><a href="{{ route('home') }}">Tableau de Bord</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Gestion des Comptes</li>
                         </ol>
                     </nav>
                 </div>
@@ -41,7 +38,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">User View Detial</h4>
+                    <h4 class="card-title">Détails</h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
@@ -51,13 +48,13 @@
                             <div class="form-body">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <label>Full Name</label>
+                                        <label>Nom</label>
                                     </div>
                                     <div class="col-md-8">
                                         <div class="form-group has-icon-left">
                                             <div class="position-relative">
                                                 <input type="text" class="form-control"
-                                                    placeholder="Name" id="first-name-icon" name="fullName" value="{{ $data[0]->name }}">
+                                                    placeholder="Nom" id="first-name-icon" name="fullName" value="{{ $data[0]->name }}">
                                                 <div class="form-control-icon">
                                                     <i class="bi bi-person"></i>
                                                 </div>
@@ -82,7 +79,7 @@
                                     </div>
 
                                     <div class="col-md-4">
-                                        <label>Email Address</label>
+                                        <label>Addresse Email</label>
                                     </div>
                                     <div class="col-md-8">
                                         <div class="form-group has-icon-left">
@@ -96,13 +93,13 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <label>Mobile Number</label>
+                                        <label>Telephone</label>
                                     </div>
                                     <div class="col-md-8">
                                         <div class="form-group has-icon-left">
                                             <div class="position-relative">
                                                 <input type="number" class="form-control"
-                                                    placeholder="Mobile" name="phone_number" value="{{ $data[0]->phone_number }}">
+                                                    placeholder="Telephone" name="phone_number" value="{{ $data[0]->phone_number }}">
                                                 <div class="form-control-icon">
                                                     <i class="bi bi-phone"></i>
                                                 </div>
@@ -111,7 +108,7 @@
                                     </div>
         
                                     <div class="col-md-4">
-                                        <label>Status</label>
+                                        <label>Statut</label>
                                     </div>
                                     <div class="col-md-8">
                                         <div class="form-group position-relative has-icon-left mb-4">
@@ -133,7 +130,7 @@
 
 
                                     <div class="col-md-4">
-                                        <label>Role Name</label>
+                                        <label>Rôle</label>
                                     </div>
                                     <div class="col-md-8">
                                         <div class="form-group position-relative has-icon-left mb-4">
@@ -155,7 +152,7 @@
 
                                     <div class="col-12 d-flex justify-content-end">
                                         <button type="submit"
-                                            class="btn btn-primary me-1 mb-1">Update</button>
+                                            class="btn btn-primary me-1 mb-1">Modifier</button>
                                         <a  href="{{ route('userManagement') }}"
                                             class="btn btn-light-secondary me-1 mb-1">Back</a>
                                     </div>

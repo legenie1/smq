@@ -1,7 +1,4 @@
 @extends('layouts.master')
-@section('menu')
-@extends('sidebar.activity_log')
-@endsection
 @section('content')
 <div id="main">
     <header class="mb-3">

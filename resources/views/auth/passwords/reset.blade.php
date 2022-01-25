@@ -21,14 +21,14 @@
                     <div class="auth-logo">
                         <a href="index.html"><img src="{{ URL::to('assets/images/logo/logo.png') }}" alt="Logo"></a>
                     </div>
-                    <h1 class="auth-title">Reset Password</h1>
-                    <p class="auth-subtitle mb-5">Input your email to register reset new password.</p>
+                    <h1 class="auth-title">Réinitialisation</h1>
+                    <p class="auth-subtitle mb-5">Entrer votre email pour réinitialiser votre mot de passe.</p>
                     <form method="POST" action="/reset-password" class="md-float-material">
                         @csrf
                         <input type="hidden" name="token" value="{{ $token }}">
                         
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-lg @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Enter Your Email">
+                            <input type="text" class="form-control form-control-lg @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Entrer Votre Email">
                             <div class="form-control-icon">
                                 <i class="bi bi-envelope"></i>
                             </div>
@@ -40,7 +40,7 @@
                         </div>
                         
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="password" class="form-control form-control-lg @error('password') is-invalid @enderror" name="password" placeholder="Choose Password">
+                            <input type="password" class="form-control form-control-lg @error('password') is-invalid @enderror" name="password" placeholder="Entrer Votre Nouveau Mot de Passe">
                             <div class="form-control-icon">
                                 <i class="bi bi-shield-lock"></i>
                             </div>
@@ -52,16 +52,16 @@
                         </div>
 
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="password" class="form-control form-control-lg" name="password_confirmation" placeholder="Choose Confirm Password">
+                            <input type="password" class="form-control form-control-lg" name="password_confirmation" placeholder="Confirmer Votre Mot de Passe">
                             <div class="form-control-icon">
                                 <i class="bi bi-shield-lock"></i>
                             </div>
                         </div>
-                        <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Reset Password</button>
+                        <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Réinitialiser</button>
                     </form>
                     <div class="text-center mt-5 text-lg fs-4">
-                        <p class='text-gray-600'>Already have an account? <a href="{{ route('login') }}"
-                        class="font-bold">Login</a>.</p>
+                        <p class='text-gray-600'>Avez-vous un compte? <a href="{{ route('login') }}"
+                        class="font-bold">Connexion</a>.</p>
                     </div>
                 </div>
             </div>

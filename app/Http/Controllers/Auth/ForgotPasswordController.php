@@ -29,11 +29,11 @@ class ForgotPasswordController extends Controller
         );
 
         Mail::send('auth.verify',['token' => $token], function($message) use ($request) {
-                  $message->from($request->email);
-                  $message->to('kakvikunkhmer7777@gmail.com');
-                  $message->subject('Reset Password Notification');
+                  $message->from(env('MAIL_USERNAME'),'MOINI');
+                  $message->to($request->email);
+                  $message->subject('Notification de Réinitialisation');
                });
 
-        return back()->with('message', 'We have e-mailed your password reset link!');
+        return back()->with('message', 'Nous vous avons envoyer un lien de réinitialisation!');
     }
 }

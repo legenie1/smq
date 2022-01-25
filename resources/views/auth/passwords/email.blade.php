@@ -21,8 +21,8 @@
                     <div class="auth-logo">
                         <a href="index.html"><img src="assets/images/logo/logo.png" alt="Logo"></a>
                     </div>
-                    <h1 class="auth-title">Forgot Password</h1>
-                    <p class="auth-subtitle mb-5">Input your email and we will send you reset password link.</p>
+                    <h1 class="auth-title">Mot de Passe Oublié</h1>
+                    <p class="auth-subtitle mb-5">Entrer votre email pour réinitialiser votre mot de passe.</p>
                     @if (session('message'))
                         <div class="text-success text-center" role="alert">
                             {{ session('message') }}
@@ -32,7 +32,7 @@
                     <form class="md-float-material" method="POST" action="/forget-password">
                         @csrf
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="email" class="form-control form-control-lg @error('email') is-invalid @enderror" name="email" value="{{ old('email') }} " placeholder="Email Address">
+                            <input type="email" class="form-control form-control-lg @error('email') is-invalid @enderror" name="email" value="{{ old('email') }} " placeholder="Addresse Email">
                             <div class="form-control-icon">
                                 <i class="bi bi-envelope"></i>
                             </div>
@@ -42,10 +42,10 @@
                                 </span>
                             @enderror
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Send</button>
+                        <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Envoyer</button>
                     </form>
                     <div class="text-center mt-5 text-lg fs-4">
-                        <p class='text-gray-600'>Remember your account? <a href="{{ route('login') }}" class="font-bold">Login</a>.</p>
+                        <p class='text-gray-600'>J'ai un compte? <a href="{{ route('login') }}" class="font-bold">Connexion</a>.</p>
                     </div>
                 </div>
             </div>

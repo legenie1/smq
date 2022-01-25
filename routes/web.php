@@ -1,13 +1,13 @@
 <?php
 
+use App\Http\Controllers\LockScreen;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FormController;
 use App\Http\Controllers\PhotosController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ResetPasswordController;
-use App\Http\Controllers\FormController;
 use App\Http\Controllers\UserManagementController;
-use App\Http\Controllers\LockScreen;
 
 
 /*
@@ -87,3 +87,44 @@ Route::get('form/view/detail', [App\Http\Controllers\FormController::class, 'vie
 Route::get('form/view/detail/{id}', [App\Http\Controllers\FormController::class, 'viewDetail'])->middleware('auth');
 Route::post('form/view/update', [App\Http\Controllers\FormController::class, 'viewUpdate'])->name('form/view/update');
 Route::get('delete/{id}', [App\Http\Controllers\FormController::class, 'viewDelete'])->middleware('auth');
+
+// ------------------------ Gestion des Associations --------------------//
+Route::resource('association', App\Http\Controllers\AssociationController::class)->middleware('auth');
+
+// -----------------------Associations plus utilisateur-----------------//
+Route::post('assoc_user', [App\Http\Controllers\Auth\RegisterController::class, 'userAssoc'])->name('userAssoc');
+
+// ------------------------ Gestion des Activités --------------------//
+Route::resource('activite', App\Http\Controllers\ActiviteController::class)->middleware('auth');
+
+// ------------------------ Gestion des Réunions --------------------//
+Route::resource('reunion', App\Http\Controllers\ReunionController::class)->middleware('auth');
+
+// ------------------------ Gestion des Membres Invitation des membre --------------------//
+Route::resource('membre', App\Http\Controllers\MembreController::class)->middleware('auth');
+
+// ----------------------- Gestion des Cycle --------------------------------------------//
+Route::resource('cycle', App\Http\Controllers\CycleController::class)->middleware('auth');
+
+// ----------------------- Gestion des Etat des Compte ---------------------------------//
+Route::resource('compte', App\Http\Controllers\PaiementController::class)->middleware('auth');
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
+    // Events
+    Route::delete('events/destroy', 'EventsController@massDestroy')->name('events.massDestroy');
+    Route::get('system-calendar', [App\Http\Controllers\Admin\SystemCalendarController::class, 'index'])->name('systemCalendar');
+    
+});
+
+ // Permissions
+ Route::delete('permissions/destroy', 'PermissionsController@massDestroy')->name('permissions.massDestroy');
+Route::resource('permissions', App\Http\Controllers\Admin\PermissionsController::class);
+
+// Roles
+Route::delete('roles/destroy', 'RolesController@massDestroy')->name('roles.massDestroy');
+Route::resource('roles', App\Http\Controllers\Admin\RolesController::class);
+
+// Events
+Route::resource('events', App\Http\Controllers\Admin\EventsController::class);
+
+Route::get('membreinvite/{id}', [App\Http\Controllers\MembreController::class, 'invite'])->middleware('auth')->name('membreinvite');
+
