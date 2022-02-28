@@ -17,9 +17,14 @@ class AssociationController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->role_name=='Admin')
+        if (Auth::user()->role_name=='Super')
         {
-            $data = DB::table('associations')->get();
+            $data = Association::get();
+            return view('association.association_all',compact('data'));
+        }
+        elseif (Auth::user()->role_name=='Admin')
+        {
+            $data = Association::where('user_id',Auth::user()->association_id)->get();
             return view('association.association_all',compact('data'));
         }
         else

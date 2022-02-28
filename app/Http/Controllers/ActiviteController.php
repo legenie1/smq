@@ -12,9 +12,9 @@ class ActiviteController extends Controller
 {
     public function index()
     {
-        if (Auth::user()->role_name=='Admin')
+        if (Auth::user()->role_name=='Super')
         {
-            $data = Activite::get()->all();
+            $data = Activite::get();
             return view('activite.activite_all',compact('data'));
         }
         else
@@ -30,7 +30,7 @@ class ActiviteController extends Controller
      */
     public function create()
     {
-        $userStatus = DB::table('user_types')->get();
+        $userStatus = Activite::get();
         $associations = DB::table('associations')->get();
         return view('activite.activite_add',compact('userStatus','associations'));
     }
@@ -45,17 +45,14 @@ class ActiviteController extends Controller
     {
         $request->validate([
             'libelle'         => 'required|string|max:255|unique:activites',
-            'association_id'    => 'required|string|max:255',
             'status'       => 'required|string|max:255',
         ]);
         try{
             $libelle            = $request->libelle;
-            $association_id     = $request->association_id;
             $status             = $request->status;
 
             $activite = new Activite();
             $activite->libelle         = $libelle;
-            $activite->association_id  = $association_id;
             $activite->status          = $status;
             $activite->save();
 
@@ -63,9 +60,8 @@ class ActiviteController extends Controller
             return redirect()->back();
 
         }catch(\Exception $e){
-
             Toastr::error("Erreur d'ajout ",'Error');
-            return redirect()->back();
+            return redirect()->route();
         }
     }
 
@@ -100,8 +96,7 @@ class ActiviteController extends Controller
     {
         $userStatus = DB::table('user_types')->get();
         $data = Activite::where('id',$id)->get();
-        $userAssociations = DB::table('associations')->get();
-        return view('activite.activite_edit',compact('data','userStatus','userAssociations'));
+        return view('activite.activite_edit',compact('data','userStatus'));
     }
 
     /**
@@ -115,20 +110,18 @@ class ActiviteController extends Controller
     {
             $id           = $request->id;
             $libelle      = $request->libelle;
-            $association_id     = $request->association_id;
             $status       = $request->status;
        
         $update = [
             'id'                    => $id,
             'libelle'               => $libelle,
-            'association_id'        => $association_id,
             'status'                => $status,
         ];
 
         Activite::where('id',$request->id)->update($update);
         $data = Activite::get()->all();
         $success = Toastr::success('Activite modifier avec success','Success');
-        return view('activite.activite_all',compact('data','success'));
+        return redirect()->route('activite.index');
     }
 
     /**

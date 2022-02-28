@@ -10,13 +10,9 @@ class Activite extends Model
 {
     protected $fillable = [
         'libelle',
-        'association_id'
+        'status'
     ];
     
     use HasFactory;
 
-    public function associations()
-    {
-        return $this->belongsTo(Association::class,'association_id');
-    }
 }

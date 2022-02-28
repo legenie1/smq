@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Brian2694\Toastr\Facades\Toastr;
 use DB;
-use App\Models\User;
-use App\Models\Form;
-use App\Rules\MatchOldPassword;
-use Carbon\Carbon;
-use Session;
 use Auth;
 use Hash;
+use Session;
+use Carbon\Carbon;
+use App\Models\Form;
+use App\Models\User;
+use App\Models\Membre;
+use Illuminate\Http\Request;
+use App\Rules\MatchOldPassword;
+use Brian2694\Toastr\Facades\Toastr;
 
 
 class UserManagementController extends Controller
 {
     public function index()
     {
-        if (Auth::user()->role_name=='Admin')
+        if (Auth::user()->role_name=='Super')
         {
             $data = DB::table('users')->get();
             return view('usermanagement.user_control',compact('data'));
@@ -32,7 +33,7 @@ class UserManagementController extends Controller
     // view detail 
     public function viewDetail($id)
     {  
-        if (Auth::user()->role_name=='Admin')
+        if (Auth::user()->role_name=='Super')
         {
             $data = DB::table('users')->where('id',$id)->get();
             $roleName = DB::table('role_type_users')->get();
@@ -66,7 +67,10 @@ class UserManagementController extends Controller
     // add new user
     public function addNewUser()
     {
-        return view('usermanagement.add_new_user');
+        $profil = DB::table('role_type_users')->get();
+        $userStatus = DB::table('user_types')->get();
+        $associations = DB::table('associations')->get();
+        return view('usermanagement.add_new_user',compact('profil','userStatus','associations'));
     }
 
      // save new user
@@ -75,29 +79,46 @@ class UserManagementController extends Controller
 
         $request->validate([
             'name'      => 'required|string|max:255',
-            'image'     => 'required|image',
+            // 'image'     => 'required|image',
             'email'     => 'required|string|email|max:255|unique:users',
-            'phone'     => 'required|min:11|numeric',
+            'phone_number'     => 'required|min:11|numeric',
             'role_name' => 'required|string|max:255',
+            'status'       => 'required|string|max:255',
+            'association_id'    => 'required|string|max:255',
             'password'  => 'required|string|min:8|confirmed',
             'password_confirmation' => 'required',
         ]);
+        try {
+            // $image = time().'.'.$request->image->extension();  
+            // $request->image->move(public_path('images'), $image);
 
-        $image = time().'.'.$request->image->extension();  
-        $request->image->move(public_path('images'), $image);
+            $user = new User;
+            $user->name         = $request->name;
+            $user->avatar       = $request->image;
+            $user->email        = $request->email;
+            $user->phone_number = $request->phone_number;
+            $user->role_name    = $request->role_name;
+            $user->status    = $request->status;
+            $user->password     = Hash::make($request->password);
+            $user->save();
 
-        $user = new User;
-        $user->name         = $request->name;
-        $user->avatar       = $image;
-        $user->email        = $request->email;
-        $user->phone_number = $request->phone;
-        $user->role_name    = $request->role_name;
-        $user->password     = Hash::make($request->password);
- 
-        $user->save();
+            $member = new Membre();
+            $member->name            = $request->name;
+            $member->email_address   = $request->email;
+            $member->phone_number    = $request->phone_number;
+            $member->role_name       = $request->role_name;
+            $member->association_id  = $request->association_id;
+            $member->status          = $request->status;
+            $member->avatar          = $request->image;
+            $member->password        = $request->password;
+            $member->save();
 
-        Toastr::success('Create new account successfully :)','Success');
-        return redirect()->route('userManagement');
+            Toastr::success('Utilisateur créer avec succès','Success');
+            return redirect()->route('userManagement');
+        } catch (\Exception $e) {
+            Toastr::success('Erréure de création','Success');
+            // return redirect()->route('userManagement');
+        }
     }
     
     // update
@@ -194,7 +215,7 @@ class UserManagementController extends Controller
         DB::table('user_activity_logs')->insert($activityLog);
 
         $delete = User::find($id);
-        unlink('images/'.$delete->avatar);
+        // unlink('images/'.$delete->avatar);
         $delete->delete();
         Toastr::success('User deleted successfully :)','Success');
         return redirect()->route('userManagement');

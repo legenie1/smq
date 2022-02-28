@@ -18,6 +18,24 @@ class PaiementController extends Controller
      */
     public function index()
     {
+        // if (Auth::user()->role_name=='Super')
+        // {
+        //     $data = Paiement::get();
+        //     return view('compte.compte_all',compact('data'));
+        // }
+        // elseif (Auth::user()->role_name=='Admin')
+        // {
+        //     $data = Paiement::get()->where('role_name','Membre')->where('association_id',Auth::user()->association_id);
+        //     return view('compte.compte_all',compact('data'));
+        // }
+        // elseif (Auth::user()->role_name=='Membre')
+        // {
+        //     $data = Paiement::get()->where('role_name','Membre')->where('association_id',Auth::user()->association_id);
+        //     return view('compte.compte_all',compact('data'));
+        // }
+
+
+
         if (Auth::user()->role_name=='Admin')
         {
             $data = Paiement::get();
@@ -40,6 +58,15 @@ class PaiementController extends Controller
         $data2 = DB::table('activites')->get();
         $data3 = DB::table('associations')->get();
         return view('compte.compte_add',compact('userStatus','data2','data3'));
+    }
+
+
+    public function paiement()
+    {
+        $userStatus = DB::table('user_types')->get();
+        $data2 = DB::table('activites')->get();
+        $data3 = DB::table('associations')->get();
+        return view('compte.paiement',compact('userStatus','data2','data3'));
     }
 
     /**

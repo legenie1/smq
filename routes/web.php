@@ -22,7 +22,8 @@ use App\Http\Controllers\UserManagementController;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('welcome');
+    // return view('auth.login');
 });
 
 Route::group(['middleware'=>'auth'],function()
@@ -91,11 +92,17 @@ Route::get('delete/{id}', [App\Http\Controllers\FormController::class, 'viewDele
 // ------------------------ Gestion des Associations --------------------//
 Route::resource('association', App\Http\Controllers\AssociationController::class)->middleware('auth');
 
+// -----------------------utilisateur plus membre-----------------//
+Route::post('validate_member', [App\Http\Controllers\ValidationController::class, 'validate_member'])->name('validate_member');
 // -----------------------Associations plus utilisateur-----------------//
-Route::post('assoc_user', [App\Http\Controllers\Auth\RegisterController::class, 'userAssoc'])->name('userAssoc');
+Route::post('validate_assoc', [App\Http\Controllers\ValidationController::class, 'validate_assoc'])->name('validate_assoc');
 
-// ------------------------ Gestion des Activités --------------------//
+// ------------------------ Gestion des Activités  par le Super Administrateur --------------------//
 Route::resource('activite', App\Http\Controllers\ActiviteController::class)->middleware('auth');
+
+
+// ------------------------ Gestion des Activités par l'admin --------------------//
+Route::resource('activitenew', App\Http\Controllers\NewActiviteController::class)->middleware('auth');
 
 // ------------------------ Gestion des Réunions --------------------//
 Route::resource('reunion', App\Http\Controllers\ReunionController::class)->middleware('auth');
@@ -108,6 +115,9 @@ Route::resource('cycle', App\Http\Controllers\CycleController::class)->middlewar
 
 // ----------------------- Gestion des Etat des Compte ---------------------------------//
 Route::resource('compte', App\Http\Controllers\PaiementController::class)->middleware('auth');
+Route::get('paiement', [App\Http\Controllers\PaiementController::class, 'paiement'])->name('paiement');
+
+// ----------------------- Gestion des calendrier--------------------------------------//
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     // Events
     Route::delete('events/destroy', 'EventsController@massDestroy')->name('events.massDestroy');

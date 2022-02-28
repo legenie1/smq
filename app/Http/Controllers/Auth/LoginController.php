@@ -79,7 +79,7 @@ class LoginController extends Controller
             DB::table('activity_logs')->insert($activityLog);
             Toastr::success('Connexion avec succès','Success');
             return redirect()->intended('home');
-        }elseif (Auth::attempt(['email'=>$email,'password'=>$password,'status'=> null])) {
+        }elseif (Auth::attempt(['email'=>$email,'password'=>$password,'status'=> 'Desactiver'])) {
             DB::table('activity_logs')->insert($activityLog);
             Toastr::success('Connexion avec succès','Success');
             return redirect()->intended('home');

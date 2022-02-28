@@ -26,7 +26,19 @@ class User extends Authenticatable
         'phone_number',
         'role_name',
         'password',
-        'status'
+        'status',
+        'cni',
+        'association_id',
+        'profil',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
     /**
@@ -47,4 +59,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function associations()
+    {
+        return $this->belongsTo(Association::class,'association_id');
+    }
 }

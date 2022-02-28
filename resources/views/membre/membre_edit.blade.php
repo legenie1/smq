@@ -1,6 +1,5 @@
 @extends('layouts.master')
 @section('content')
-<div id="main">
     <style>
         .avatar.avatar-im .avatar-content, .avatar.avatar-xl img {
             width: 40px !important;
@@ -13,23 +12,18 @@
 
     </style>
     
-    <header class="mb-3">
-        <a href="#" class="burger-btn d-block d-xl-none">
-            <i class="bi bi-justify fs-3"></i>
-        </a>
-    </header>
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Gestion des Associations</h3>
+                    <h3>Gestion des Membres</h3>
                     <p class="text-subtitle text-muted">Pour que l'utilisateur vérifie sa liste</p>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">Tableau de Bord</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Gestion des Associations</li>
+                            <li class="breadcrumb-item active" aria-current="page">Gestion des Membres</li>
                         </ol>
                     </nav>
                 </div>
@@ -68,8 +62,8 @@
                                     <div class="col-md-8">
                                         <div class="form-group has-icon-left">
                                             <div class="position-relative">
-                                                <input type="text" class="form-control @error('session') is-invalid @enderror" value="{{ $data[0]->email_address }}"
-                                                    placeholder="Entrer la session" id="first-name-icon" name="email">
+                                                <input type="text" class="form-control @error('email') is-invalid @enderror" value="{{ $data[0]->email }}"
+                                                    placeholder="Entrer l'email" id="first-name-icon" name="email">
                                                 <div class="form-control-icon">
                                                     <i class="bi bi-envelope"></i>
                                                 </div>
@@ -136,11 +130,11 @@
                                         <div class="form-group position-relative has-icon-left mb-4">
                                             <fieldset class="form-group">
                                                 <select class="form-select" name="role_name" id="role_name">
-                                                    <option value="{{ $data[0]->role_name }}" {{ ( $data[0]->role_name == $data[0]->role_name) ? 'selected' : ''}}> 
-                                                        {{ $data[0]->role_name }}
+                                                    <option value="{{ $data[0]->profil }}" {{ ( $data[0]->profil == $data[0]->profil) ? 'selected' : ''}}> 
+                                                        {{ $data[0]->profil }}
                                                     </option>
                                                     @foreach ($roleType as $key => $value)
-                                                    <option value="{{ $value->role_type }}"> {{ $value->role_type }}</option>
+                                                    <option value="{{ $value->title }}"> {{ $value->title }}</option>
                                                     @endforeach  
                                                 </select>
                                                 <div class="form-control-icon">
@@ -186,16 +180,16 @@
             </div>
         </div>
     </div>
+    <br>
     <footer>
-        <div class="footer clearfix mb-0 text-muted ">
+        <div class="footer clearfix mb-0 text-muted">
             <div class="float-start">
-                <p>2021 &copy; Soeng Souy</p>
+                <p>2021 &copy; Gesta</p>
             </div>
             <div class="float-end">
                 <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                href="http://soengsouy.com">Soeng Souy</a></p>
+                href="#">Gesta</a></p>
             </div>
         </div>
     </footer>
-</div>
 @endsection

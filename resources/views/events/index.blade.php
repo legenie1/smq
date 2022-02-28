@@ -1,6 +1,5 @@
 @extends('layouts.master')
 @section('content')
-    <div id="main">
         {{-- @can('event_create') --}}
         <div style="margin-bottom: 10px;" class="row">
             <div class="col-lg-12">
@@ -17,7 +16,7 @@
 
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class=" table table-bordered table-striped table-hover datatable datatable-Event">
+                    <table class="table table-striped" id="table1">
                         <thead>
                             <tr>
                                 <th width="10">
@@ -103,7 +102,6 @@
                 </div>
 
             </div>
-        </div>
     </div>
 @endsection
 {{-- @section('scripts')

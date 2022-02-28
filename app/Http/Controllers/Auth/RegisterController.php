@@ -71,25 +71,6 @@ class RegisterController extends Controller
         $associd = Association::orderBy('id', 'DESC')->first();
         // nous l'enregistrons également en tant que membre de l'association
         try{
-            $name         = $request->name;
-            $email        = $request->email;
-            $phone_number = $request->phone_number;
-            $association_id     = $associd->id;
-            $role_name    = $request->role_name;
-            $avatar       = $request->image;
-            $password     = Hash::make($request->password);
-            $status       = 'Active';
-
-            $member = new Membre();
-            $member->name            = $name;
-            $member->email_address   = $email;
-            $member->phone_number    = $phone_number;
-            $member->role_name       = $role_name;
-            $member->association_id  = $association_id;
-            $member->status          = $status;
-            $member->avatar          = $avatar;
-            $member->password        = $password;
-            $member->save();
 
             // sending password through sms notification
         $password = "admin237mvengi";
@@ -111,51 +92,31 @@ class RegisterController extends Controller
             'name'      => 'required|string|max:255',
             'email'     => 'required|string|email|max:255|unique:users',
             'phone_number'  => 'required|string|size:9|unique:users',
-            'password'  => 'required|string|min:8|confirmed',
-            'password_confirmation' => 'required',
+            'password'  => 'required|string|min:8',
         ]);
 
         $password = "admin237mvengi";
         $message ="Bienvenue sur la plateforme de tontine MOINI, votre mot de passe de connexion est " .$request->password;
 
-        $sending = Http::get("http://obitsms.com/api/bulksms?username=" . env('MAIL_USERNAME') . "&password=" . $password . "&sender=" .env('APP_NAME') . "&destination=" ."237". $request->phone_number . "&message=" . $message);
+        // $sending = Http::get("http://obitsms.com/api/bulksms?username=" . env('MAIL_USERNAME') . "&password=" . $password . "&sender=" .env('APP_NAME') . "&destination=" ."237". $request->phone_number . "&message=" . $message);
         
         User::create([
             'name'      => $request->name,
             'avatar'    => $request->image,
             'email'     => $request->email,
             'phone_number' => $request->phone_number,
-            'role_name' => 'Membre',
+            // 'role_name' => 'Membre',
             'status'    => "Desactiver",
             'password'  => Hash::make($request->password),
         ]);
 
         try{
-            $name         = $request->name;
-            $email        = $request->email;
-            $phone_number = $request->phone_number;
-            $association_id     = $request->association_id;
-            $role_name    = 'Membre';
-            $avatar       = $request->image;
-            $password     = Hash::make($request->password);
-            $status       = 'Desactiver';
-
-            $member = new Membre();
-            $member->name            = $name;
-            $member->email_address   = $email;
-            $member->phone_number    = $phone_number;
-            $member->role_name       = $role_name;
-            $member->association_id  = $association_id;
-            $member->status          = $status;
-            $member->avatar          = $avatar;
-            $member->password        = $password;
-            $member->save();
 
             // sending password through sms notification
         $password = "admin237mvengi";
         $message ="Bienvenue sur la plateforme de tontine MOINI, vous recevrez une confirmation par votre administrateur d'ici peu";
 
-        $sending = Http::get("http://obitsms.com/api/bulksms?username=" . env('MAIL_USERNAME') . "&password=" . $password . "&sender=" .env('APP_NAME') . "&destination=" ."237". $request->phone_number . "&message=" . $message);
+        // $sending = Http::get("http://obitsms.com/api/bulksms?username=" . env('MAIL_USERNAME') . "&password=" . $password . "&sender=" .env('APP_NAME') . "&destination=" ."237". $request->phone_number . "&message=" . $message);
         
 
         }catch(\Exception $e){

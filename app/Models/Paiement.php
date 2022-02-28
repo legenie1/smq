@@ -17,7 +17,10 @@ class Paiement extends Model
         'nom_id',
         'activite_id',
         'montant',
-        'status'
+        'status',
+        'updated_at',
+        'created_at',
+        'deleted_at'
     ];
 
     public function activities()

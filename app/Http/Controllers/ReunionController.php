@@ -13,7 +13,7 @@ class ReunionController extends Controller
 {
     public function index()
     {
-        if (Auth::user()->role_name=='Admin')
+        if (Auth::user()->role_name=='Super' || Auth::user()->role_name=='Admin')
         {
             $data = Reunion::get()->all();
             return view('reunion.reunion_all',compact('data'));

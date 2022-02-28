@@ -7,11 +7,12 @@
                     {{-- div for navs select --}}
                     <div class="col-12">
                         <div class="nav nav-pills" id="v-pills-tab" role="tablist" aria-orientation="horizontal">
-                            <a class="nav-link active btn btn-outline-primary" id="v-pills-home-tab" style="font-size: 22px;" data-bs-toggle="pill"
-                                href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Devenir
-                                Membre</a> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                            <a class="nav-link btn btn-outline-primary" id="v-pills-profile-tab" style="font-size: 22px;" data-bs-toggle="pill"
-                                href="#v-pills-profile" role="tab" aria-controls="v-pills-profile"
+                            <a class="nav-link active btn btn-outline-primary" id="v-pills-home-tab" style="font-size: 22px;"
+                                data-bs-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home"
+                                aria-selected="true">Devenir
+                                Membre</a> &nbsp &nbsp
+                            <a class="nav-link btn btn-outline-primary" id="v-pills-profile-tab" style="font-size: 20px;"
+                                data-bs-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile"
                                 aria-selected="false">Créer une Tontine</a>
                         </div>
                     </div>
@@ -22,9 +23,9 @@
                             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
                                 aria-labelledby="v-pills-home-tab">
                                 <br>
-                                <form method="POST" action="{{ route('register') }}" class="md-float-material">
-                                    @csrf
-                                    <div class="form-group position-relative has-icon-left mb-4">
+                                {{-- <form method="POST" action="{{ route('register') }}" class="md-float-material">
+                                    @csrf --}}
+                                    {{-- <div class="form-group position-relative has-icon-left mb-4">
                                         <input type="text"
                                             class="form-control form-control-lg @error('name') is-invalid @enderror"
                                             name="name" value="{{ old('name') }}" placeholder="Entrer Votre Nom">
@@ -36,11 +37,11 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                    </div>
+                                    </div> --}}
                                     {{-- insert defaults --}}
-                                    <input type="hidden" class="image" name="image" value="photo_defaults.jpg">
+                                    {{-- <input type="hidden" class="image" name="image" value="photo_defaults.jpg"> --}}
 
-                                    <div class="form-group position-relative has-icon-left mb-4">
+                                    {{-- <div class="form-group position-relative has-icon-left mb-4">
                                         <input type="text"
                                             class="form-control form-control-lg @error('email') is-invalid @enderror"
                                             name="email" value="{{ old('email') }}" placeholder="Entrer Votre Email">
@@ -52,9 +53,9 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                    </div>
+                                    </div> --}}
 
-                                    <div class="form-group position-relative has-icon-left mb-4">
+                                    {{-- <div class="form-group position-relative has-icon-left mb-4">
                                         <input type="number"
                                             class="form-control form-control-lg @error('phone_number') is-invalid @enderror"
                                             name="phone_number" value="{{ old('phone_number') }}"
@@ -67,19 +68,28 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                    </div>
+                                    </div> --}}
 
                                     <div class="form-group position-relative has-icon-left mb-4">
                                         <fieldset class="form-group">
-                                            <select class="form-select @error('association_id') is-invalid @enderror"
-                                                    name="association_id" id="association_id"
-                                                    value="{{ old('association_id') }}">
-                                                    <option selected disabled>Selectionner une asssociation</option>
-                                                    @foreach ($associations as $key => $item)
-                                                        <option value="{{ $item->id }}"> {{ $item->libelle }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
+                                            {{-- <select class="form-select @error('association_id') is-invalid @enderror"
+                                                name="association_id" id="association_id"
+                                                value="{{ old('association_id') }}">
+                                                <option selected disabled>Selectionner une asssociation</option>
+                                                @foreach ($associations as $key => $item)
+                                                    <option value="{{ $item->id }}"> {{ $item->libelle }}
+                                                    </option>
+                                                @endforeach
+                                            </select> --}}
+                                            {{-- <select name="association_id[]" id="association_id" class="form-control select2"
+                                                multiple="multiple" required>
+                                                @foreach ($associations as $id => $associations)
+                                                    <option value="{{ $id }}"
+                                                        {{ in_array($id, old('association_id', []))}}>
+                                                        {{ $associations->libelle }} {{ $associations->id }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
                                             <div class="form-control-icon">
                                                 <i class="bi bi-exclude"></i>
                                             </div>
@@ -118,7 +128,7 @@
                                     <p class='text-gray-600'>Avez-vous déjà un compte? <a href="{{ route('login') }}"
                                             class="font-bold">Connexion</a>.</p>
                                 </div>
-                            </div>
+                            </div> --}}
                             {{-- Fin Création d'une tontine --}}
 
                             {{-- Création d'une tontine --}}
@@ -127,7 +137,7 @@
                                 <br>
                                 <form method="POST" action="{{ route('userAssoc') }}" class="md-float-material">
                                     @csrf
-                                    <div class="form-group position-relative has-icon-left mb-4">
+                                    {{-- <div class="form-group position-relative has-icon-left mb-4">
                                         <input type="text"
                                             class="form-control form-control-lg @error('name') is-invalid @enderror"
                                             name="name" value="{{ old('name') }}" placeholder="Entrer Votre Nom">
@@ -139,11 +149,11 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                    </div>
+                                    </div> --}}
                                     {{-- insert defaults --}}
-                                    <input type="hidden" class="image" name="image" value="photo_defaults.jpg">
+                                    {{-- <input type="hidden" class="image" name="image" value="photo_defaults.jpg"> --}}
 
-                                    <div class="form-group position-relative has-icon-left mb-4">
+                                    {{-- <div class="form-group position-relative has-icon-left mb-4">
                                         <input type="text"
                                             class="form-control form-control-lg @error('email') is-invalid @enderror"
                                             name="email" value="{{ old('email') }}" placeholder="Entrer Votre Email">
@@ -155,9 +165,9 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                    </div>
+                                    </div> --}}
 
-                                    <div class="form-group position-relative has-icon-left mb-4">
+                                    {{-- <div class="form-group position-relative has-icon-left mb-4">
                                         <input type="number"
                                             class="form-control form-control-lg @error('phone_number') is-invalid @enderror"
                                             name="phone_number" value="{{ old('phone_number') }}"
@@ -170,11 +180,11 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                    </div>
+                                    </div> --}}
 
-                                    <input type="hidden" class="role_name" name="role_name" value="Admin">
+                                    {{-- <input type="hidden" class="role_name" name="role_name" value="Admin"> --}}
 
-                                    <div class="form-group position-relative has-icon-left mb-4">
+                                    {{-- <div class="form-group position-relative has-icon-left mb-4">
                                         <input type="text"
                                             class="form-control form-control-lg @error('libelle') is-invalid @enderror"
                                             name="libelle" value="{{ old('libelle') }}"
@@ -187,9 +197,9 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                    </div>
+                                    </div> --}}
 
-                                    <div class="form-group position-relative has-icon-left mb-4">
+                                    {{-- <div class="form-group position-relative has-icon-left mb-4">
                                         <input type="text"
                                             class="form-control form-control-lg @error('session') is-invalid @enderror"
                                             name="session" value="{{ old('session') }}"
@@ -202,9 +212,9 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                    </div>
+                                    </div> --}}
 
-                                    <div class="form-group position-relative has-icon-left mb-4">
+                                    {{-- <div class="form-group position-relative has-icon-left mb-4">
                                         <input type="text"
                                             class="form-control form-control-lg @error('start') is-invalid @enderror"
                                             name="start" value="{{ old('start') }}"
@@ -217,13 +227,13 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                    </div>
+                                    </div> --}}
 
-                                    <div class="form-group position-relative has-icon-left mb-4">
+                                    {{-- <div class="form-group position-relative has-icon-left mb-4">
                                         <input type="text"
                                             class="form-control form-control-lg @error('end') is-invalid @enderror"
-                                            name="end" value="{{ old('end') }}"
-                                            placeholder="Valider La Date de Fin" onfocus="(this.type='date')">
+                                            name="end" value="{{ old('end') }}" placeholder="Valider La Date de Fin"
+                                            onfocus="(this.type='date')">
                                         <div class="form-control-icon">
                                             <i class="bi bi-calendar"></i>
                                         </div>
@@ -232,9 +242,9 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                    </div>
+                                    </div> --}}
 
-                                    <div class="form-group position-relative has-icon-left mb-4">
+                                    {{-- <div class="form-group position-relative has-icon-left mb-4">
                                         <input type="password"
                                             class="form-control form-control-lg @error('password') is-invalid @enderror"
                                             name="password" placeholder="Entrer Votre Mot De Passe">
@@ -254,8 +264,9 @@
                                         <div class="form-control-icon">
                                             <i class="bi bi-shield-check"></i>
                                         </div>
-                                    </div>
-                                    <button class="btn btn-primary btn-block btn-lg shadow-lg mt-4">Créer Ma Tontine</button>
+                                    </div> --}}
+                                    {{-- <button class="btn btn-primary btn-block btn-lg shadow-lg mt-4">Créer Ma
+                                        Tontine</button> --}}
                                 </form>
                                 <div class="text-center mt-5 text-lg fs-4">
                                     <p class='text-gray-600'>Avez-vous déjà un compte? <a href="{{ route('login') }}"

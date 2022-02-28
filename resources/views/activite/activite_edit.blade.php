@@ -1,6 +1,5 @@
 @extends('layouts.master')
 @section('content')
-<div id="main">
     <style>
         .avatar.avatar-im .avatar-content, .avatar.avatar-xl img {
             width: 40px !important;
@@ -13,11 +12,6 @@
 
     </style>
     
-    <header class="mb-3">
-        <a href="#" class="burger-btn d-block d-xl-none">
-            <i class="bi bi-justify fs-3"></i>
-        </a>
-    </header>
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
@@ -53,36 +47,19 @@
                                     <div class="col-md-8">
                                         <div class="form-group has-icon-left">
                                             <div class="position-relative">
-                                                <input type="text" class="form-control"
+                                                <input type="text" class="form-control" @error('libelle') is-invalid @enderror
                                                     placeholder="Nom" id="first-name-icon" name="libelle" value="{{ $data[0]->libelle }}">
                                                 <div class="form-control-icon">
                                                     <i class="bi bi-person"></i>
                                                 </div>
+                                                @error('libelle')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
-        
-                                    <div class="col-md-4">
-                                        <label>Association</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="form-group position-relative has-icon-left mb-4">
-                                            <fieldset class="form-group">
-                                                <select class="form-select" name="association_id" id="association_id">
-                                                    <option value="{{ $data[0]->associations->id }}" {{ ( $data[0]->associations->libelle == $data[0]->associations->libelle) ? 'selected' : ''}}> 
-                                                        {{ $data[0]->associations->libelle }}
-                                                    </option>
-                                                    @foreach ($userAssociations as $key => $value)
-                                                    <option value="{{ $value->id }}"> {{ $value->libelle }}</option>
-                                                    @endforeach  
-                                                </select>
-                                                <div class="form-control-icon">
-                                                    <i class="bi bi-bag-check"></i>
-                                                </div>
-                                            </fieldset>
-                                        </div>
-                                    </div>
-
 
                                     <div class="col-md-4">
                                         <label>Statut</label>
@@ -120,14 +97,16 @@
             </div>
         </div>
     </div>
+    <br>
     <footer>
-        <div class="footer clearfix mb-0 text-muted ">
+        <div class="footer clearfix mb-0 text-muted">
             <div class="float-start">
-                <p>2022 &copy; Gesta</p>
+                <p>2021 &copy; Gesta</p>
             </div>
-            <div class="float-end">Gesta
+            <div class="float-end">
+                <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
+                href="#">Gesta</a></p>
             </div>
         </div>
     </footer>
-</div>
 @endsection

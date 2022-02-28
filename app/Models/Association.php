@@ -11,6 +11,7 @@ class Association extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'libelle',
         'session',
         'start',

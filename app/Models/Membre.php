@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use App\Models\Membre;
 use App\Models\Association;
 use Illuminate\Database\Eloquent\Model;
@@ -12,20 +13,27 @@ class Membre extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'sex',
-        'phone_number',
-        'role_name',
-        'email_addresse',
-        'cni',
         'association_id',
-        'status',
-        'password'
+        'user_id',
+        'updated_at',
+        'created_at',
+        'deleted_at'
+    ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
     public function associations()
     {
         return $this->belongsTo(Association::class,'association_id');
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class,'user_id');
     }
 
     public function roles()

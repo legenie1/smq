@@ -1,6 +1,5 @@
 @extends('layouts.master')
 @section('content')
-    <div id="main">
         <div class="card">
             <div class="card-header">
                 {{ trans('global.create') }} {{ trans('cruds.event.title_singular') }}
@@ -68,9 +67,6 @@
                         <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
                     </div>
                 </form>
-
-
-            </div>
         </div>
     </div>
 @endsection

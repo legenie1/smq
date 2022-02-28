@@ -21,9 +21,19 @@ class MembreController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->role_name=='Admin')
+        if (Auth::user()->role_name=='Super')
         {
-            $data = Membre::get()->all();
+            $data = User::get();
+            return view('membre.membre_all',compact('data'));
+        }
+        elseif (Auth::user()->role_name=='Admin')
+        {
+            $data = User::get()->where('role_name','Membre')->where('association_id',Auth::user()->association_id);
+            return view('membre.membre_all',compact('data'));
+        }
+        elseif (Auth::user()->role_name=='Membre')
+        {
+            $data = User::get()->where('role_name','Membre')->where('association_id',Auth::user()->association_id);
             return view('membre.membre_all',compact('data'));
         }
         else
@@ -39,9 +49,18 @@ class MembreController extends Controller
      */
     public function create()
     {
-        $profil = DB::table('role_type_users')->get();
+        if (Auth::user()->role_name=='Super')
+        {
+            $associations = DB::table('associations')->get();
+        }
+        elseif (Auth::user()->role_name=='Admin')
+        {
+            $associations = DB::table('associations')->where('user_id',Auth::user()->association_id)->get();
+        }
+
+        $profil = DB::table('roles')->get();
         $userStatus = DB::table('user_types')->get();
-        $associations = DB::table('associations')->get();
+        
         return view('membre.membre_add',compact('userStatus','profil','associations'));
     }
 
@@ -55,14 +74,14 @@ class MembreController extends Controller
     {
         $request->validate([
             'name'         => 'required|string|max:255',
-            'sex'          => 'required',
             'email'        => 'required|string|email|max:255',
             'phone_number' => 'required|string|size:9',
-            'cni'          => 'required|string|max:10',
-            'role_name'    => 'required|string|max:255',
+            'cni'          => 'string|size:9',
+            'profil'       => 'required|string|max:50',
             'association_id'    => 'required|string|max:255',
             'status'       => 'required|string|max:255',
         ]);
+
         try{
             $name         = $request->name;
             $sex          = $request->sex;
@@ -70,27 +89,34 @@ class MembreController extends Controller
             $phone_number = $request->phone_number;
             $cni          = $request->cni;
             $association_id     = $request->association_id;
-            $role_name    = $request->role_name;
+            $profil       = $request->profil;
             $status       = $request->status;
-            $password     = substr(str_shuffle(str_repeat($pool, 5)), 0, 8);
+            // $password     = substr(str_shuffle(str_repeat($pool, 5)), 0, 8);
+
+            $user = new User();
+            $user->name            = $name;
+            $user->email           = $email;
+            $user->phone_number    = $phone_number;
+            $user->cni             = $cni;
+            $user->profil          = $profil;
+            $user->role_name       = 'Membre';
+            $user->association_id  = $association_id;
+            $user->status          = $status;
+            $user->password        = Hash::make(123456);
+            $user->save();
+
+            $userid = User::orderBy('id', 'DESC')->first();
+
 
             $member = new Membre();
-            $member->name            = $name;
-            $member->sex             = $sex;
-            $member->email_address   = $email;
-            $member->phone_number    = $phone_number;
-            $member->cni             = $cni;
-            $member->role_name       = $role_name;
-            $member->association_id  = $association_id;
-            $member->status          = $status;
-            $member->password        = Hash::make(123456);
+            $member->association_id = $association_id;
+            $member->user_id        = $userid->id;
             $member->save();
 
             Toastr::success('Membre ajouter avec succès','Success');
             return redirect()->back();
 
         }catch(\Exception $e){
-
             Toastr::error("Erreur d'ajout ",'Error');
             return redirect()->back();
         }
@@ -126,9 +152,9 @@ class MembreController extends Controller
     public function edit($id)
     {
         $userStatus = DB::table('user_types')->get();
-        $data = Membre::where('id',$id)->get();
+        $data = User::where('id',$id)->get();
         $userAssociations = DB::table('associations')->get();
-        $roleType = DB::table('role_type_users')->get();
+        $roleType = DB::table('roles')->get();
         return view('membre.membre_edit',compact('data','userStatus','userAssociations','roleType'));
     }
 
@@ -154,25 +180,25 @@ class MembreController extends Controller
         $update = [
             'id'                    => $id,
             'name'                  => $name,
-            'sex'                   => $sex,
-            'email_address'         => $email,
+            'email'                 => $email,
             'cni'                   => $cni,
             'phone_number'          => $phone_number,
             'association_id'        => $association_id,
-            'role_name'             => $role_name,
+            'profil'                => $role_name,
             'status'                => $status,
         ];
 
-        Membre::where('id',$request->id)->update($update);
-        $data = Membre::get()->all();
-        $success = Toastr::success('Membre modifier avec success','Success');
-        return view('membre.membre_all',compact('data','success'));
+        User::where('id',$request->id)->update($update);
+        // $data = Membre::all();
+        
+        Toastr::success('Informations modifier avec success','Success');
+        return redirect()->back();
     }
     // invitation controller
     public function invite($id)
     {
         // $id   = $request->id;
-        $info = Membre::where('id',$id)->orderBy('id', 'DESC')->get();
+        $info = User::where('id',$id)->orderBy('id', 'DESC')->get();
         $phone = $info[0]->phone_number;
 
         $update = [
@@ -180,7 +206,7 @@ class MembreController extends Controller
             'status'                => 'Active',
         ];
 
-        Membre::where('id',$id)->update($update);
+        User::where('id',$id)->update($update);
 
          // sending invitation notification
          $password = "admin237mvengi";
@@ -188,7 +214,7 @@ class MembreController extends Controller
 
          $sending = Http::get("http://obitsms.com/api/bulksms?username=" . env('MAIL_USERNAME') . "&password=" . $password . "&sender=" .env('APP_NAME') . "&destination=" ."237". $phone . "&message=" . $message);
         
-        $data = Membre::get()->all();
+        $data = User::get()->all();
         $success = Toastr::success('Invitation envoyé avec success','Success');
         return view('membre.membre_all',compact('data','success'));
     }
@@ -200,7 +226,7 @@ class MembreController extends Controller
      */
     public function destroy($id)
     {
-        $delete = Membre::find($id);
+        $delete = User::find($id);
         $delete->delete();
         Toastr::success('Membre supprimer avec succès','Success');
         return redirect()->route('membre.index');

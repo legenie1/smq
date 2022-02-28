@@ -43,7 +43,7 @@ class RoleTypeUsersTableSeeder extends Seeder
             3 => 
             array (
                 'id' => 4,
-                'role_type' => 'Contrôleur',
+                'role_type' => 'Controleur',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),

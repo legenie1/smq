@@ -1,6 +1,5 @@
 @extends('layouts.master')
 @section('content')
-    <div id="main">
         <div class="card">
             <div class="card-header">
                 {{ trans('global.show') }} {{ trans('cruds.role.title') }}
