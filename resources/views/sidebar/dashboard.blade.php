@@ -3,7 +3,7 @@
         <div class="sidebar-header">
             <div class="d-flex justify-content-between">
                 <div class="logo">
-                    MOINI
+                    SMQ-NSIA
                 </div>
                 <div class="toggler">
                     <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -46,111 +46,38 @@
                         </ul>
                     </li>
                 @endif
-                <li class="sidebar-item  has-sub">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-chat-right-dots-fill"></i>
-                        <span>Réunion</span>
-                    </a>
-                    <ul class="submenu">
-                        <li class="submenu-item active">
-                            <a href="{{ route('reunion.create') }}">Ajouter un rapport</a>
-                            <a href="{{ route('reunion.index') }}">Consulter</a>
-                        </li>
-                    </ul>
-                </li>
-                {{-- Nouvelle activité par l'admin --}}
-                <li class="sidebar-item  has-sub">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-cash"></i>
-                        <span>Nos Activités</span>
-                    </a>
-                    <ul class="submenu">
-                        <li class="submenu-item active">
-                            <a href="{{ route('paiement') }}">Ajouter</a>
-                            <a href="{{ route('activitenew.index') }}">Consulter</a>
-                        </li>
-                    </ul>
-                </li>
-                {{-- Finance pour la déclaration des finances --}}
-                <li class="sidebar-item  has-sub">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-cash"></i>
-                        <span>Finances</span>
-                    </a>
-                    <ul class="submenu">
-                        <li class="submenu-item active">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#default">Déclarer un Payement</a>
-                            <a href="{{ route('compte.index') }}">Consulter</a>
-                        </li>
-                    </ul>
-                </li>
-                {{-- gestion des associations --}}
+
+                @if (Auth::user()->role_name =='Super')
                 <li class="sidebar-item  has-sub">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-people"></i>
-                        <span>Association</span>
+                        <span>Processus</span>
                     </a>
                     <ul class="submenu">
                         <li class="submenu-item active">
-                            <a href="{{ route('association.index') }}">Consulter</a>
-                            <a href="{{ route('association.create') }}">Ajouter</a>
+                            <a href="{{ route('processus.index') }}">Consulter </a>
+                            <a href="{{ route('processus.index') }}">Ajouter</a>
                         </li>
                     </ul>
-                </li>
+                </li> 
+                @endif
 
-                {{-- gestion des membres --}}
+                {{-- gestion des sociétés --}}
                 <li class="sidebar-item  has-sub">
                     <a href="#" class='sidebar-link'>
-                        <i class="bi bi-people-fill"></i>
-                        <span>Membres</span>
+                        <i class="bi bi-people"></i>
+                        <span>Mon Formulaire</span>
                     </a>
                     <ul class="submenu">
                         <li class="submenu-item active">
-                            <a href="{{ route('membre.index') }}">Consulter</a>
-                            <a href="{{ route('membre.create') }}">Ajouter</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item  has-sub">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-hexagon-fill"></i>
-                        <span>Cycles</span>
-                    </a>
-                    <ul class="submenu">
-                        <li class="submenu-item active">
-                            <a href="{{ route('admin.systemCalendar') }}"
-                                class=" {{ request()->is('admin/system-calendar') || request()->is('admin/system-calendar/*') ? 'active' : '' }}">Calendrier</a>
-                            <a href="{{ route('events.index') }}">Liste des Reunions</a>
+                            <a href="{{ route('pac.index') }}">Plan d'amélioration continu </a>
+                            <a href="{{ route('pac.index') }}">Plan de maitrise des risques et opportutnité</a>
+                            <a href="{{ route('pac.index') }}">Satisfaction client</a>
+                            <a href="{{ route('kpi.index') }}">KPI</a>
                         </li>
                     </ul>
                 </li>
 
-                <li class="sidebar-item  has-sub">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-gear"></i>
-                        <span>Paramètres</span>
-                    </a>
-                    <ul class="submenu">
-                        <li class="submenu-item">
-                            <a href="{{ route('activite.index') }}">Gestion des Activités</a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="{{ route('permissions.index') }}">Gestion des Permissions</a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="{{ route('roles.index') }}">Gestion des Roles</a>
-                        </li>
-                    </ul>
-
-                </li>
-                {{-- @endif --}}
-
-                <li class="sidebar-item">
-                    <a href="{{ url('admin/filemanager') }}" class='sidebar-link'>
-                        <i class="bi bi-file-earmark-medical-fill"></i>
-                        <span>Gestionnaire des Fichiers</span>
-                    </a>
-                </li>
                 <li class="sidebar-item">
                     <a href="{{ route('lock_screen') }}" class='sidebar-link'>
                         <i class="bi bi-lock-fill"></i>

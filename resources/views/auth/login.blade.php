@@ -6,7 +6,7 @@
              <div class="front">
                  <img src="{{ URL::to('assets/images/frontImg.jpg') }}" alt="">
                  <div class="text">
-                     <span class="text-1">Bienvenue sur la plateforme <br>en-ligne MOINI</span>
+                     <span class="text-1">Bienvenue sur la plateforme <br>SQM-NSIA</span>
                      <span class="text-2">Prêt à démarrer</span>
                  </div>
              </div>

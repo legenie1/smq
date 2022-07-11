@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Societe;
+use App\Traits\LockableTrait;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use App\Traits\LockableTrait;
 
 class User extends Authenticatable
 {
@@ -28,7 +29,7 @@ class User extends Authenticatable
         'password',
         'status',
         'cni',
-        'association_id',
+        'societe_id',
         'profil',
         'created_at',
         'updated_at',
@@ -60,8 +61,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function associations()
+    public function societes()
     {
-        return $this->belongsTo(Association::class,'association_id');
+        return $this->belongsTo(Societe::class,'societe_id');
     }
 }

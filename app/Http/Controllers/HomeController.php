@@ -25,11 +25,11 @@ class HomeController extends Controller
     public function index()
     {
         $users = DB::table('users')->count();
-        $membres = DB::table('membres')->count();
-        $associations = DB::table('associations')->count();
-        $associationlist = DB::table('associations')->get();
+        $chauffeurs = DB::table('users')->where('role_name','Chauffeur')->count();
+        $societes = DB::table('societes')->count();
+        $associationlist = DB::table('societes')->get();
         $user_activity_logs = DB::table('user_activity_logs')->count();
         $activity_logs = DB::table('activity_logs')->count();
-        return view('home',compact('membres','associations','users','user_activity_logs','activity_logs','associationlist'));
+        return view('home',compact('chauffeurs','societes','users','user_activity_logs','activity_logs','associationlist'));
     }
 }

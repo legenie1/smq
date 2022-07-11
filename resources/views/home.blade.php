@@ -20,7 +20,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Activités</h6>
+                                                <h6 class="text-muted font-semibold">Taux de correction</h6>
                                                 <h6 class="font-extrabold mb-0">{{ $activity_logs }}</h6>
                                             </div>
                                         </div>
@@ -37,8 +37,8 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Associations</h6>
-                                                <h6 class="font-extrabold mb-0">{{ $associations }}</h6>
+                                                <h6 class="text-muted font-semibold">Taux d'action correctives</h6>
+                                                <h6 class="font-extrabold mb-0">{{ $societes }}</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -54,7 +54,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Utilisateurs</h6>
+                                                <h6 class="text-muted font-semibold">Taux de satidfaction client</h6>
                                                 <h6 class="font-extrabold mb-0">{{ $users }}</h6>
                                             </div>
                                         </div>
@@ -71,8 +71,8 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Membres</h6>
-                                                <h6 class="font-extrabold mb-0">{{ $membres }}</h6>
+                                                <h6 class="text-muted font-semibold">Chauffeurs</h6>
+                                                <h6 class="font-extrabold mb-0">{{ $chauffeurs }}</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -87,43 +87,6 @@
                                     </div>
                                     <div class="card-body">
                                         <div id="chart-profile-visit"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 col-xl-8">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4>Commentaire recents</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table table-hover table-lg">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Nom</th>
-                                                        <th>Commentaire</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="col-3">
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="avatar avatar-md">
-                                                                    <img src="assets/images/faces/5.jpg">
-                                                                </div>
-                                                                <p class="font-bold ms-3 mb-0">Joel</p>
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-auto">
-                                                            <p class=" mb-0">Congratulations on your graduation!
-                                                            </p>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -250,7 +213,7 @@
 
                         <div class="card">
                             <div class="card-header">
-                                <h4>Profile des Visiteurs</h4>
+                                <h4>Taux d'actions correctives</h4>
                             </div>
                             <div class="card-body">
                                 <div id="chart-visitors-profile"></div>

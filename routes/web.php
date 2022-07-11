@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\UserManagementController;
+use App\Http\Controllers\PayController;
 
 
 /*
@@ -21,10 +22,6 @@ use App\Http\Controllers\UserManagementController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-    // return view('auth.login');
-});
 
 Route::group(['middleware'=>'auth'],function()
 {
@@ -44,6 +41,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // -----------------------------login----------------------------------------//
+Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
 Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'authenticate']);
 Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
@@ -81,49 +79,15 @@ Route::get('activity/login/logout', [App\Http\Controllers\UserManagementControll
 Route::get('change/password', [App\Http\Controllers\UserManagementController::class, 'changePasswordView'])->middleware('auth')->name('change/password');
 Route::post('change/password/db', [App\Http\Controllers\UserManagementController::class, 'changePasswordDB'])->name('change/password/db');
 
-// ----------------------------- form staff ------------------------------//
-Route::get('form/staff/new', [App\Http\Controllers\FormController::class, 'index'])->middleware('auth')->name('form/staff/new');
-Route::post('form/save', [App\Http\Controllers\FormController::class, 'saveRecord'])->name('form/save');
-Route::get('form/view/detail', [App\Http\Controllers\FormController::class, 'viewRecord'])->middleware('auth')->name('form/view/detail');
-Route::get('form/view/detail/{id}', [App\Http\Controllers\FormController::class, 'viewDetail'])->middleware('auth');
-Route::post('form/view/update', [App\Http\Controllers\FormController::class, 'viewUpdate'])->name('form/view/update');
-Route::get('delete/{id}', [App\Http\Controllers\FormController::class, 'viewDelete'])->middleware('auth');
-
-// ------------------------ Gestion des Associations --------------------//
-Route::resource('association', App\Http\Controllers\AssociationController::class)->middleware('auth');
-
 // -----------------------utilisateur plus membre-----------------//
 Route::post('validate_member', [App\Http\Controllers\ValidationController::class, 'validate_member'])->name('validate_member');
 // -----------------------Associations plus utilisateur-----------------//
 Route::post('validate_assoc', [App\Http\Controllers\ValidationController::class, 'validate_assoc'])->name('validate_assoc');
 
-// ------------------------ Gestion des Activités  par le Super Administrateur --------------------//
-Route::resource('activite', App\Http\Controllers\ActiviteController::class)->middleware('auth');
-
-
-// ------------------------ Gestion des Activités par l'admin --------------------//
-Route::resource('activitenew', App\Http\Controllers\NewActiviteController::class)->middleware('auth');
-
-// ------------------------ Gestion des Réunions --------------------//
-Route::resource('reunion', App\Http\Controllers\ReunionController::class)->middleware('auth');
-
-// ------------------------ Gestion des Membres Invitation des membre --------------------//
-Route::resource('membre', App\Http\Controllers\MembreController::class)->middleware('auth');
-
-// ----------------------- Gestion des Cycle --------------------------------------------//
-Route::resource('cycle', App\Http\Controllers\CycleController::class)->middleware('auth');
-
 // ----------------------- Gestion des Etat des Compte ---------------------------------//
 Route::resource('compte', App\Http\Controllers\PaiementController::class)->middleware('auth');
 Route::get('paiement', [App\Http\Controllers\PaiementController::class, 'paiement'])->name('paiement');
 
-// ----------------------- Gestion des calendrier--------------------------------------//
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
-    // Events
-    Route::delete('events/destroy', 'EventsController@massDestroy')->name('events.massDestroy');
-    Route::get('system-calendar', [App\Http\Controllers\Admin\SystemCalendarController::class, 'index'])->name('systemCalendar');
-    
-});
 
  // Permissions
  Route::delete('permissions/destroy', 'PermissionsController@massDestroy')->name('permissions.massDestroy');
@@ -133,8 +97,9 @@ Route::resource('permissions', App\Http\Controllers\Admin\PermissionsController:
 Route::delete('roles/destroy', 'RolesController@massDestroy')->name('roles.massDestroy');
 Route::resource('roles', App\Http\Controllers\Admin\RolesController::class);
 
-// Events
-Route::resource('events', App\Http\Controllers\Admin\EventsController::class);
 
-Route::get('membreinvite/{id}', [App\Http\Controllers\MembreController::class, 'invite'])->middleware('auth')->name('membreinvite');
+Route::resource('pac', App\Http\Controllers\PacController::class)->middleware('auth');
 
+Route::resource('processus', App\Http\Controllers\ProcessusController::class)->middleware('auth');
+
+Route::resource('kpi', App\Http\Controllers\KpiController::class)->middleware('auth');
